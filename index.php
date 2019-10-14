@@ -24,7 +24,7 @@ catch(PDOException $e)
     echo "Connection failed: " . $e->getMessage();
     }
 
-$stmtapen = $dbh->prepare("SELECT soort FROM aap");
+$stmtapen = $dbh->prepare("SELECT * FROM aap");
 $stmtapen->execute();
 $apen = $stmtapen->fetchAll();
 
@@ -34,18 +34,19 @@ foreach($apen as $aap) { ?>
 <li><a href="https://www.google.nl/search?q=<?=$aap['soort']?>&tbm=isch"><?=$aap['soort']?></a></li>
 <?php }
 
-echo "</ul>" ?>
+echo "</ul>";
 
-<!--<ul>-->
-<!--    <li><a href="https://www.google.nl/search?q=Baviaan&tbm=isch">Baviaan</a></li>-->
-<!--    <li><a href="https://www.google.nl/search?q=Guereza&tbm=isch">Guereza</a></li>-->
-<!--    <li><a href="https://www.google.nl/search?q=Langoer&tbm=isch">Langoer</a></li>-->
-<!--    <li><a href="https://www.google.nl/search?q=Neusaap&tbm=isch">Neusaap</a></li>-->
-<!--    <li><a href="https://www.google.nl/search?q=Tamarin&tbm=isch">Tamarin</a></li>-->
-<!--    <li><a href="https://www.google.nl/search?q=Brulaap&tbm=isch">Brulaap</a></li>-->
-<!--    <li><a href="https://www.google.nl/search?q=Halfaap&tbm=isch">Halfaap</a></li>-->
-<!--    <li><a href="https://www.google.nl/search?q=Mandril&tbm=isch">Mandril</a></li>-->
-<!--</ul>-->
+$stmtleefgebieden = $dbh->prepare("SELECT * FROM leefgebied");
+$stmtleefgebieden->execute();
+$leefgebieden = $stmtleefgebieden->fetchAll();
+
+echo "<ul>";
+
+foreach($leefgebieden as $leefgebied) {
+    echo "<li>".$leefgebied['omschrijving']."</li>";
+}
+
+echo "</ul>";?>
 
 </body>
 </html>
