@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+    text-align: center;
+    padding-right: 40px;
+}
+
+a {
+    color: #ff8400;
+    font-family: 'Bangers', cursive;
+    font-size: 30px;
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#logotext {
+    text-align: center;
+    padding-top: 10px;
+}
+
+#logobar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+}
