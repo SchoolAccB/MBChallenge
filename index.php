@@ -33,7 +33,7 @@ foreach ($apen as $aap) { ?>
     <li><a href="https://www.google.nl/search?q=<?= $aap['soort'] ?>&tbm=isch"><?= $aap['soort'] ?></a></li>
 <?php }
 
-echo "</ul>"; ?>
+echo "</ul>"; ?>'
 
 <div id="leefgebied">
     <form id="leefgebiedinput" action="" method="post">
@@ -55,7 +55,7 @@ if (isset($_POST['submitleefgebied'])) {
     $dbh->exec($sql);
 }
 
-$stmtleefgebieden = $dbh->prepare("SELECT * FROM leefgebied");
+$stmtleefgebieden = $dbh->prepare("SELECT omschrijving, idleefgebied FROM leefgebied");
 $stmtleefgebieden->execute();
 $leefgebieden = $stmtleefgebieden->fetchAll(); ?>
 
@@ -66,11 +66,29 @@ $leefgebieden = $stmtleefgebieden->fetchAll(); ?>
     </tr>
 
     <?php foreach ($leefgebieden as $leefgebied) {
-        echo "<tr><td>". $leefgebied['idleefgebied'] ."</td><td>". $leefgebied['omschrijving'] . "</td></tr>";
+        echo "<tr><td>" . $leefgebied['idleefgebied'] . "</td><td>" . $leefgebied['omschrijving'] . "</td></tr>";
     }
 
-    echo "</ul>";
-    echo "</table>"; ?>
+    echo "</ul>";?>
+</table>
+
+<?php $stmtleefgebiedenenSoort = $dbh->prepare("SELECT * FROM aap 
+JOIN aap_has_leefgebied ON aap_has_leefgebied.idaap = aap.idaap 
+JOIN leefgebied ON leefgebied.idleefgebied = aap_has_leefgebied.idleefgebied");
+$stmtleefgebiedenenSoort->execute();
+$leefgebiedenenSoort = $stmtleefgebiedenenSoort->fetchAll(); ?>
+
+<table>
+    <tr>
+        <th>Soort</th>
+        <th>Leefgebied</th>
+    </tr>
+    <?php foreach($leefgebiedenenSoort as $leefgebiedSoort) {
+        echo "<tr><td>".$leefgebiedSoort['soort']."</td><td>".$leefgebiedSoort['omschrijving']."</td></tr>";
+
+    } ?>
+
+</table>
 
 </body>
 </html>
