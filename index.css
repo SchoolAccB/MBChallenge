@@ -14,6 +14,24 @@ a {
     font-size: 30px;
 }
 
+input, button, select {
+    padding: 3px;
+    margin: 5px;
+    border: 1px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 190px;
+    margin: auto;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
 #logo {
     display: block;
     margin-left: auto;
@@ -30,4 +48,12 @@ a {
     margin-left: auto;
     margin-right: auto;
     padding-top: 20px;
+}
+
+#leefgebiedinput {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+
 }
