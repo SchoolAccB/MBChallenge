@@ -14,8 +14,9 @@
 
 <img id="logobar" src="Resources/monkey_swings.png">
 
+<ul><li><a href="index.php">Back</a></li></ul>
+
 <?php
-$db = mysqli_connect('localhost', 'root', 'toor', 'apen', '8889');
 try {
     $dbh = new PDO('mysql:host=localhost;port=8889;dbname=apen', "root", "toor");
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -23,23 +24,23 @@ try {
     echo "Connection failed: " . $e->getMessage();
 }
 
-$stmtapen = $dbh->prepare("SELECT * FROM aap");
-$stmtapen->execute();
-$apen = $stmtapen->fetchAll();
+$stmtleefgebiedenenSoort = $dbh->prepare("SELECT * FROM aap 
+JOIN aap_has_leefgebied ON aap_has_leefgebied.idaap = aap.idaap 
+JOIN leefgebied ON leefgebied.idleefgebied = aap_has_leefgebied.idleefgebied");
+$stmtleefgebiedenenSoort->execute();
+$leefgebiedenenSoort = $stmtleefgebiedenenSoort->fetchAll(); ?>
 
-echo "<ul>";
+<table>
+    <tr>
+        <th>Soort</th>
+        <th>Leefgebied</th>
+    </tr>
+    <?php foreach($leefgebiedenenSoort as $leefgebiedSoort) {
+        echo "<tr><td>".$leefgebiedSoort['soort']."</td><td>".$leefgebiedSoort['omschrijving']."</td></tr>";
 
-foreach ($apen as $aap) { ?>
-    <li><a href="https://www.google.nl/search?q=<?= $aap['soort'] ?>&tbm=isch"><?= $aap['soort'] ?></a></li>
-<?php }
+    } ?>
 
-echo "</ul>"; ?>'
-
-<ul><li><a href="voegleefgebied.php">Voeg leefgebied toe</a></li></ul>
-
-<ul><li><a href="leefgebieden.php">Weergeef alle apen met leefgebieden</a></li></ul>
-
-<ul><li><a href="zoekapensoort.php">Zoek apen soort met leefgebied</a></li></ul>
+</table>
 
 </body>
 </html>
