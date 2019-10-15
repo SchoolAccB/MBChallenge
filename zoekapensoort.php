@@ -33,17 +33,16 @@ try {
 $gezochteAap = "";
 
 if (isset($_POST['zoekaapsubmit'])) {
-$gezochteAap = $_POST['zoekaapinput'];
-
-if ($gezochteAap == "") {
-    header("Location: zoekapensoort.php");
+$gezochteAap = $_POST['zoekaapinput']."%";
+if ($gezochteAap == "%") {
+    echo "<ul><li>Geen aap gevonden</li></ul>";
     exit();
 } else {
 
 
-$stmtzoekaap = $dbh->prepare("SELECT soort, omschrijving FROM aap 
-        JOIN aap_has_leefgebied ON aap_has_leefgebied.idaap = aap.idaap 
-        JOIN leefgebied ON leefgebied.idleefgebied = aap_has_leefgebied.idleefgebied WHERE soort = :gezochteAap");
+$stmtzoekaap = $dbh->prepare("SELECT soort, omschrijving FROM aap
+JOIN aap_has_leefgebied ON aap_has_leefgebied.idaap = aap.idaap
+JOIN leefgebied ON leefgebied.idleefgebied = aap_has_leefgebied.idleefgebied WHERE soort LIKE :gezochteAap");
 $stmtzoekaap->execute([":gezochteAap" => $gezochteAap]);
 $zoekApen = $stmtzoekaap->fetchAll(); ?>
 
@@ -65,3 +64,6 @@ $zoekApen = $stmtzoekaap->fetchAll(); ?>
 
 </body>
 </html>
+
+
+
